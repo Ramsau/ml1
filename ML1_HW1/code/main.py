@@ -94,7 +94,8 @@ def task_2():
         axs.set_ylabel('x2')
         axs.legend(*p.legend_elements(), loc='best', bbox_to_anchor=(0.96, 1.15))    
 
-        #fig.savefig(fig_name) # TODO: Uncomment if you want to save it
+        fig.savefig(fig_name) # TODO: Uncomment if you want to save it
+        #plt.show()
         plt.close()  # Comment/Uncomment
     
     for task in [0, 1, 2]:
@@ -116,8 +117,9 @@ def task_2():
             X_data = np.load('data/X-1-data.npy') # TODO: change me
             y = np.load('data/targets-dataset-2.npy') # TODO: change me
 
-            #final_feature = np.where((X_data[:,0] + X_data[:,1] < 30), 1, 0) # cut square in half (diagonally)
-            final_feature = np.where((X_data[:,1] < (-1) * 0.04 * X_data[:,0] + 25), 1, 0) # approximately parabola divide with help of parabola
+            #final_feature = np.where((X_data[:,1] < (-1) * X_data[:,0]), 1, 0) # cut square in half (diagonally)
+            #final_feature = np.where((X_data[:,1] < (-1) * 0.04 * X_data[:,0]**2 + 25), 1, 0)
+            final_feature = np.square(X_data[:,0]) + np.square(X_data[:,1])
             X = np.concatenate((X_data, final_feature.reshape(-1, 1)), axis=1) #TODO # create the design matrix based on the features in X_data
 
         
@@ -198,9 +200,9 @@ def task_3():
 
 
 def main():
-    task_1()
+    #task_1()
     task_2()
-    task_3()
+    #task_3()
 
 
 if __name__ == '__main__':
