@@ -94,8 +94,8 @@ def task_2():
         axs.set_ylabel('x2')
         axs.legend(*p.legend_elements(), loc='best', bbox_to_anchor=(0.96, 1.15))    
 
-        fig.savefig(fig_name) # TODO: Uncomment if you want to save it
-        #plt.show()
+        #fig.savefig(fig_name) # TODO: Uncomment if you want to save it
+        plt.show()
         plt.close()  # Comment/Uncomment
     
     for task in [0, 1, 2]:
@@ -107,10 +107,9 @@ def task_2():
 
             x1_feature = np.select([X_data[:,0] >= 10], [1], default=0) # 0-> blue dot, 1->yellow dot
             x2_feature = np.select([X_data[:,1] <= 20], [1], default=0) # 0-> blue dot, 1->yellow dot
-            final_feature = np.where((x1_feature == 1) & (x2_feature == 1), 1, 0)
 
-
-            X = np.concatenate((X_data, final_feature.reshape(-1, 1)), axis=1) # create the design matrix based on the features in X_data
+            X = np.concatenate((X_data, x1_feature.reshape(-1, 1)), axis=1) # create the design matrix based on the features in X_data
+            X = np.concatenate((X_data, x2_feature.reshape(-1, 1)), axis=1)
 
         elif task == 1:
             # Load the data set 2 (X-1-data.npy and targets-dataset-2.npy)
@@ -200,9 +199,9 @@ def task_3():
 
 
 def main():
-    #task_1()
+    task_1()
     task_2()
-    #task_3()
+    task_3()
 
 
 if __name__ == '__main__':
