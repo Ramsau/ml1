@@ -25,9 +25,9 @@ def task_1():
     estimated_theta_per_memristor = np.zeros(n_memristor)
     for i in range(n_memristor):
         # Implement an approprate function call
-        x = 0  # TODO: change me
-        y = 0  # TODO: change me
-        theta = 0  # TODO: change me
+        x = data[i, :, 0]  # TODO: change me
+        y = data[i, :, 1]  # TODO: change me
+        theta = fit_zero_intercept_lin_model(x, y)  # TODO: change me
 
         # Visualize the data and the best fit for each memristor
         plt.figure()
@@ -53,10 +53,9 @@ def task_1():
     estimated_params_per_memristor = np.zeros((n_memristor, 2))
     for i in range(n_memristor):
         # Implement an approprate function call
-        x = 0  # TODO: change me
-        y = 0  # TODO: change me
-        theta_0, theta_1 = 0, 0  # TODO: change me
-        
+        x = data[i, :, 0]
+        y = data[i, :, 1]
+        theta_0, theta_1 = fit_lin_model_with_intercept(x, y)
         # Visualize the data and the best fit for each memristor
         plt.figure()
         plt.plot(x, y, 'ko')

@@ -20,8 +20,15 @@ def fit_zero_intercept_lin_model(x, y):
     :param y: y coordinates of data points (i.e., \Delta R_i$)
     :return: theta 
     """
-    
-    theta = 0 # TODO: change me
+
+    upper = 0
+    lower = 0
+
+    for (x_e, y_e) in zip(x, y):
+        upper += x_e * y_e
+        lower += x_e * x_e
+
+    theta = upper / lower
     return theta
 
 
