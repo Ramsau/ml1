@@ -38,8 +38,20 @@ def fit_lin_model_with_intercept(x, y):
     :param y: y coordinates of data points (i.e., \Delta R_i$)
     :return: theta_0, theta_1 
     """
-    
-    theta_0, theta_1 = 0, 0  # TODO: change me
+
+    sum_val_ideal = np.sum(x)
+    sum_val = np.sum(y)
+    m = len(x)
+    sum_val_ideal_squared = 0
+    sum_val_ideal_val = 0
+    for (val_ideal, val) in zip(x, y):
+        sum_val_ideal_squared += val_ideal * val_ideal
+        sum_val_ideal_val += val_ideal * val
+
+    theta_0 = ((sum_val_ideal_val / sum_val_ideal_squared) - (sum_val / sum_val_ideal)) /\
+        ((sum_val_ideal / sum_val_ideal_squared) / (m / sum_val_ideal))
+
+    theta_1 = (sum_val - m * theta_0) / sum_val_ideal
     return theta_0, theta_1 
 
 
