@@ -29,6 +29,7 @@ def task_1():
         x = data[i, :, 0]
         y = data[i, :, 1]
         theta = fit_zero_intercept_lin_model(x, y)
+        estimated_theta_per_memristor[i] = theta
 
         # Visualize the data and the best fit for each memristor
         plt.figure()
@@ -57,7 +58,8 @@ def task_1():
         x = data[i, :, 0]
         y = data[i, :, 1]
         theta_0, theta_1 = fit_lin_model_with_intercept(x, y)
-        thetas.append([theta_0, theta_1])
+        estimated_params_per_memristor[i, 0] = theta_0
+        estimated_params_per_memristor[i, 1] = theta_1
 
         # Visualize the data and the best fit for each memristor
         plt.figure()
@@ -82,7 +84,7 @@ def task_1():
     for i in range(n_memristor):
         print("Memristor %d: %s fault" % (
             i,
-            "stuck" if abs(thetas[i][1]) < 0.1 else ("concordant" if thetas[i][1] > 0 else "discordant")
+            "stuck" if abs(estimated_params_per_memristor[i, 1]) < 0.1 else ("concordant" if estimated_params_per_memristor[i, 1] > 0 else "discordant")
         ))
 
     

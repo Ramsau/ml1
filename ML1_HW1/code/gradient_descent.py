@@ -60,9 +60,19 @@ def eggholder(x):
 
 def gradient_eggholder(x):
     # Implement gradients of the Eggholder function w.r.t. x and y
-    grad_x = 0  # TODO: change me 
-    grad_y = 0  # TODO: change me
-                                      
+    sqrt = np.sqrt(x[0] - x[1] - 47)
+    sqrt_abs = np.sqrt(np.abs(x[0] / 2 + x[1] + 47))
+    cos_sqrt = np.cos(sqrt)
+    cos_sqrt_abs = np.cos(sqrt_abs)
+    sin_sqrt = np.sin(sqrt)
+    sin_sqrt_abs = np.sin(sqrt_abs)
+
+    first_block = -(((x[1] + 47) * (x[0]/2 + x[1] + 47) * cos_sqrt_abs) / (2 * np.float_power(np.abs(x[0]/2 + x[1] + 47), 3/2)))
+    last_block = ((x[0] * cos_sqrt) / (2 * sqrt))
+
+    grad_x = (first_block / 2) - sin_sqrt - last_block
+    grad_y = first_block - sin_sqrt_abs + last_block
+
     return np.array([grad_x, grad_y])
 
 
