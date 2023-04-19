@@ -149,6 +149,27 @@
         return 0
     \end{lstlisting}
 
+    \pagebreak
+    \includepdf{task3pnp}
+
+    \subsection*{3.4 Convergence}
+    The following graphs show the convergence rates with $10^{-4}$, $10^{-6}$ and $10^{-10}$ learning rate respectively.
+    Note that none of the runs has converged on the true minimum of the function.\\
+    \includegraphics[width=\textwidth / 2]{3_fast_learn}
+    \includegraphics[width=\textwidth / 2]{3_mid_learn}
+    \includegraphics[width=\textwidth / 2]{3_slow_learn}
+
+    \subsection*{3.5 Challenges}
+    The function is hard to optimize because it has very many local minima.
+    An optimizing algorithm easily gets stuck on one of these local minima, and never gets near the global minimum.
+    As a result, the algorithm was never able to find the global minimum in our tests.
+
+    \subsection*{3.6 Differentiability}
+    The absolute function has a sharp point at location $0$.
+    This means that there is no defined derivative of the function at this point.
+    Another way to look at this is that the derivative of $|u|$ is $\frac{u}{|u|}$, which is undefined for $u = 0$.
+    This makes optimisation even harder since an undefined derivative makes the descent step meaningless.
+
 \end{document}
 
 %%%%%%%%% end snippet

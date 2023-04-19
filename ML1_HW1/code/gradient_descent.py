@@ -44,8 +44,10 @@ def gradient_descent(f, df, x, learning_rate, max_iter):
     for i in range(max_iter):
         E_list[i] = f(x) # update E_list with the current value of the cost f(x)
         gradient = df(x)
-        x[0] -= learning_rate * gradient[0] # learning_rate * gradient -> step size along the direction of steepest ascent. We subtract this quantity from x[0] to move x[0] in the direction of steepest descent
-        x[1] -= learning_rate * gradient[1] # same as above
+        gradient_norm = np.sqrt(gradient[0] ** 2 + gradient[1] ** 2)
+        dir = [gradient[0] / gradient_norm, gradient[1] / gradient_norm]
+        x[0] -= learning_rate * dir[0] # learning_rate * gradient -> step size along the direction of steepest ascent. We subtract this quantity from x[0] to move x[0] in the direction of steepest descent
+        x[1] -= learning_rate * dir[1] # same as above
         
     
     return x, E_list
@@ -60,18 +62,16 @@ def eggholder(x):
 
 def gradient_eggholder(x):
     # Implement gradients of the Eggholder function w.r.t. x and y
-    sqrt = np.sqrt(x[0] - x[1] - 47)
-    sqrt_abs = np.sqrt(np.abs(x[0] / 2 + x[1] + 47))
-    cos_sqrt = np.cos(sqrt)
-    cos_sqrt_abs = np.cos(sqrt_abs)
-    sin_sqrt = np.sin(sqrt)
-    sin_sqrt_abs = np.sin(sqrt_abs)
+    plus_thing = x[0] / 2.0 + x[1] + 47.0
+    minus_thing = x[0] - x[1] - 47.0
 
-    first_block = -(((x[1] + 47) * (x[0]/2 + x[1] + 47) * cos_sqrt_abs) / (2 * np.float_power(np.abs(x[0]/2 + x[1] + 47), 3/2)))
-    last_block = ((x[0] * cos_sqrt) / (2 * sqrt))
+    first_block = -(((x[1] + 47.0) * plus_thing * np.cos(np.sqrt(np.abs(plus_thing)))) /
+                    (2.0 * np.abs(plus_thing) * np.sqrt(np.abs(plus_thing))))
+    last_block = -((x[0] * minus_thing * np.cos(np.sqrt(np.abs(minus_thing)))) /
+                   (2.0 * np.abs(minus_thing) * np.sqrt(np.abs(minus_thing))))
 
-    grad_x = (first_block / 2) - sin_sqrt - last_block
-    grad_y = first_block - sin_sqrt_abs + last_block
+    grad_x = (first_block / 2.0) - np.sin(np.sqrt(np.abs(minus_thing))) + last_block
+    grad_y = first_block - np.sin(np.sqrt(np.abs(plus_thing))) + last_block
 
     return np.array([grad_x, grad_y])
 

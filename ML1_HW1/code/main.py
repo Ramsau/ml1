@@ -183,15 +183,20 @@ def task_3():
     # Plot the function, to see how it looks like
     plot_eggholder_function(eggholder)
 
-    x0 = np.array([0, 0]) # TODO: choose a 2D random point from randint (-512, 512)
+    x0 = np.array([np.random.randint(-512, 512), np.random.randint(-512, 512)])
     print(f'Starting point: x={x0}')
 
     # Call the function gradient_descent. Choose max_iter, learning_rate.
-    x, E_list = gradient_descent(eggholder, gradient_eggholder, x0, learning_rate=0.0, max_iter=0)
+    learning_rate = 1e-4
+    x, E_list = gradient_descent(eggholder, gradient_eggholder, x0, learning_rate=learning_rate, max_iter=200)
 
-    # print(f'Minimum found: f({x}) = {eggholder(x)}')
+    print(f'Minimum found: f({x}) = {eggholder(x)}')
     
-   # TODO Make a plot of the cost over iteration. Do not forget to label the plot (xlabel, ylabel, title).
+    plt.plot(E_list, label=f'learning_rate={learning_rate}')
+    plt.ylabel("f(x)")
+    plt.xlabel("Iteration")
+    plt.legend()
+    plt.show()
 
     x_min = np.array([512, 404.2319])
     print(f'Global minimum: f({x_min}) = {eggholder(x_min)}')
@@ -206,8 +211,8 @@ def task_3():
 
 
 def main():
-    task_1()
-    task_2()
+    # task_1()
+    # task_2()
     task_3()
 
 
