@@ -3,14 +3,41 @@ from numpy.linalg import pinv  # if you decide to implement the equations using 
 
 
 def test_fit_zero_intercept_lin_model():
-    # TODO: bonus task
-    # Implement two test cases that test your implementation of the function fit_zero_intercept_lin_model. Use assert command for that.
+    # Implement two test cases that test your implementation of the function fit_zero_intercept_lin_model. Use assert command for that.`
+    tests = np.array([
+        [[100, 150], [200, 300], [300, 450], [400, 600]],
+        [[100, -150], [200, -300], [300, -450], [400, -600]],
+        [[100, 50], [100, -50], [200, 50], [200, -50]],
+        [[100, 50], [100, 50], [200, 50], [200, 50]],
+    ])
+    correct_thetas = [1.5, -1.5, 0, 0.3]
+
+    for i in range(len(correct_thetas)):
+        x = tests[i, :, 0]
+        y = tests[i, :, 1]
+        theta = fit_zero_intercept_lin_model(x, y)
+        assert(abs(theta - correct_thetas[i]) < 1e-10)
     return 0
 
 
 def test_fit_lin_model_with_intercept():
-    # TODO: bonus task
     # Implement two test cases that test your implementation of the function fit_lin_model_with_intercept. Use assert command for that.
+    # TODO: bonus task
+    tests = np.array([
+        [[100, 150], [200, 300], [300, 450], [400, 600]],
+        [[100, 250], [200, 400], [300, 550], [400, 700]],
+        [[100, -150], [200, -300], [300, -450], [400, -600]],
+        [[100, 150], [100, 50], [200, 150], [200, 50]],
+        [[100, 50], [100, 50], [200, 50], [200, 50]],
+    ])
+    correct_thetas = [[0, 1.5], [100, 1.5], [0, -1.5], [100, 0], [50, 0]]
+
+    for i in range(len(correct_thetas)):
+        x = tests[i, :, 0]
+        y = tests[i, :, 1]
+        theta_0, theta_1 = fit_lin_model_with_intercept(x, y)
+        assert(abs(theta_0 - correct_thetas[i][0]) < 1e-10)
+        assert(abs(theta_1 - correct_thetas[i][1]) < 1e-10)
     return 0
 
 
@@ -49,7 +76,7 @@ def fit_lin_model_with_intercept(x, y):
         sum_val_ideal_val += val_ideal * val
 
     theta_0 = ((sum_val_ideal_val / sum_val_ideal_squared) - (sum_val / sum_val_ideal)) /\
-        ((sum_val_ideal / sum_val_ideal_squared) / (m / sum_val_ideal))
+        ((sum_val_ideal / sum_val_ideal_squared) - (m / sum_val_ideal))
 
     theta_1 = (sum_val - m * theta_0) / sum_val_ideal
     return theta_0, theta_1 

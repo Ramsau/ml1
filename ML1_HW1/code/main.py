@@ -20,14 +20,15 @@ def task_1():
     print(data.shape)
     
     n_memristor = data.shape[0]
+    thetas = []
 
     ### --- Use Model 1 (zero-intercept lin. model, that is, fit the model using fit_zero_intercept_lin_model)    
     estimated_theta_per_memristor = np.zeros(n_memristor)
     for i in range(n_memristor):
         # Implement an approprate function call
-        x = data[i, :, 0]  # TODO: change me
-        y = data[i, :, 1]  # TODO: change me
-        theta = fit_zero_intercept_lin_model(x, y)  # TODO: change me
+        x = data[i, :, 0]
+        y = data[i, :, 1]
+        theta = fit_zero_intercept_lin_model(x, y)
 
         # Visualize the data and the best fit for each memristor
         plt.figure()
@@ -56,6 +57,8 @@ def task_1():
         x = data[i, :, 0]
         y = data[i, :, 1]
         theta_0, theta_1 = fit_lin_model_with_intercept(x, y)
+        thetas.append([theta_0, theta_1])
+
         # Visualize the data and the best fit for each memristor
         plt.figure()
         plt.plot(x, y, 'ko')
@@ -76,8 +79,11 @@ def task_1():
     print('\nModel 2 (linear model with intercept).')
     print(f"Estimated params (theta_0, theta_1) per memristor: {estimated_params_per_memristor}")
 
-    # TODO: Use either Model 1 or Model 2 for the decision on memristor fault type. 
-    # This should be a piece of code with if-statements and thresholds on parameters (you have to decide which thresholds make sense).
+    for i in range(n_memristor):
+        print("Memristor %d: %s fault" % (
+            i,
+            "stuck" if abs(thetas[i][1]) < 0.1 else ("concordant" if thetas[i][1] > 0 else "discordant")
+        ))
 
     
 def task_2():
