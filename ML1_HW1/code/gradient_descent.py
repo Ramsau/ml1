@@ -41,13 +41,20 @@ def gradient_descent(f, df, x, learning_rate, max_iter):
     E_list = np.zeros(max_iter)
     # Implement the gradient descent algorithm
     # E_list should be appended in each iteration, with the current value of the cost
+    for i in range(max_iter):
+        E_list[i] = f(x) # update E_list with the current value of the cost f(x)
+        gradient = df(x)
+        x[0] -= learning_rate * gradient[0] # learning_rate * gradient -> step size along the direction of steepest ascent. We subtract this quantity from x[0] to move x[0] in the direction of steepest descent
+        x[1] -= learning_rate * gradient[1] # same as above
+        
     
     return x, E_list
 
 
 def eggholder(x):
     # Implement the cost function specified in the HW1 sheet
-    z = x[0] + x[1]  # TODO: change me
+    # TODO: change me
+    z = (-1) * (x[1] + 47) * np.sin(np.sqrt(np.abs(x[0] / 2 + x[1] + 47))) - x[0] * np.sin(np.sqrt(np.abs(x[0] - (x[1] + 47))))
     return z
 
 
