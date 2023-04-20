@@ -65,6 +65,14 @@ def gradient_eggholder(x):
     plus_thing = x[0] / 2.0 + x[1] + 47.0
     minus_thing = x[0] - x[1] - 47.0
 
+    small_value = 1e5
+
+    if (plus_thing == 0):
+        plus_thing += small_value
+    if (minus_thing == 0):
+        minus_thing += small_value
+
+
     first_block = -(((x[1] + 47.0) * plus_thing * np.cos(np.sqrt(np.abs(plus_thing)))) /
                     (2.0 * np.abs(plus_thing) * np.sqrt(np.abs(plus_thing))))
     last_block = -((x[0] * minus_thing * np.cos(np.sqrt(np.abs(minus_thing)))) /

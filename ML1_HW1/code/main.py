@@ -202,17 +202,17 @@ def task_3():
     print(f'Global minimum: f({x_min}) = {eggholder(x_min)}')
 
     # Test 1 - Problematic point 1. See HW1, Tasks 3.6 and 3.7.
-    x, y = 0, 0 # TODO: change me
+    x, y = 48, 1 # TODO: change me
     print('A problematic point: ', gradient_eggholder([x, y]))
     
     # Test 2 - Problematic point 2. See HW1, Tasks 3.6 and 3.7.
-    x, y = 0, 0 # TODO: change me
+    x, y = 47, 0 # TODO: change me
     print('Another problematic point: ', gradient_eggholder([x, y]))
 
 
 def main():
-    # task_1()
-    # task_2()
+    task_1()
+    task_2()
     task_3()
 
 
