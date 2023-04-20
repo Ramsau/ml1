@@ -32,7 +32,7 @@
                        \hline
                        Last name & First name & Matriculation Number \\
                        \hline
-                       Grassl & Ifeoma & [matnr] \\
+                       Grassl & Ifeoma & 12011965 \\
                        \hline
                        Royer & Christoph & 12004184 \\
                        \hline
@@ -169,6 +169,10 @@
     This means that there is no defined derivative of the function at this point.
     Another way to look at this is that the derivative of $|u|$ is $\frac{u}{|u|}$, which is undefined for $u = 0$.
     This makes optimisation even harder since an undefined derivative makes the descent step meaningless.
+    
+    \subsection*{3.7 Problematic points}
+    The gradient of the Eggholder function might be problematic in points where the Eggholder function is not differentiable. To find these points 	we can take a look at the derivatives w.r.t. x and y and check if there are any points x,y where one of these derivatives is not defined. 
+	Specifically, we take a look at the denominators in these derivatives. For certain points like (47, 0) or (48, 1) (these are the points we 			tested) this part of one denominator $\frac{x}{2} + y + 47$ will be zero which results in a division by zero, making these points problematic. 	Therefore, for the cases where the denominator might become zero, we add a small value to it to avoid an error and get an approximate result 		for the point.
 
 \end{document}
 
