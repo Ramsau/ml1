@@ -56,13 +56,30 @@ def train_nn_with_regularization(features, targets):
     """
     X_train, X_test, y_train, y_test = train_test_split(features, targets, test_size=0.2, random_state=33)
 
-    # Copy your code from train_nn, but experiment now with regularization (alpha, early_stopping).
+    n_hidden_neurons = [2, 10, 100, 200]
 
-    train_acc = 0 # TODO
-    test_acc =  0 # TODO
-    loss =  0 # TODO
-    print(f'Train accuracy: {train_acc:.4f}. Test accuracy: {test_acc:.4f}')
-    print(f'Loss: {loss:.4f}')
+    for n_hid in n_hidden_neurons:
+        print(f'\nNumber of hidden neurons: {n_hid}')
+
+        # alpha, early stopping, alpha + early stopping
+        # prediction: third works best
+        # result: first is best
+        mlps = [
+            MLPClassifier(hidden_layer_sizes=(n_hid, ), max_iter=500, solver='adam', random_state=1, alpha=0.1),
+            MLPClassifier(hidden_layer_sizes=(n_hid, ), max_iter=500, solver='adam', random_state=1, early_stopping=True),
+            MLPClassifier(hidden_layer_sizes=(n_hid, ), max_iter=500, solver='adam', random_state=1, alpha=0.1, early_stopping=True)
+            ]
+
+        for i in range(3):
+
+            mlps[i].fit(X_train, y_train)
+
+            train_acc = mlps[i].score(X_train, y_train)
+            test_acc = mlps[i].score(X_test, y_test)
+            loss = mlps[i].loss_
+            print(f'Variation {i}:')
+            print(f'Train accuracy: {train_acc:.4f}. Test accuracy: {test_acc:.4f}')
+            print(f'Loss: {loss:.4f}')
 
 
 def train_nn_with_different_seeds(features, targets):
