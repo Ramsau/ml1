@@ -69,7 +69,7 @@ Loss: 0.0044
     \end{lstlisting}
 
     Underfitting is generally easy to spot, as it manifests in poor performance both on training and on test data.
-    This is often the case if the model does not have enough capacity; in this case, the loss converges on a bad value.
+    This is often the case if the model does not have enough capacity (ie. not enough complexity); in this case, the loss converges on a bad value.
     The model cannot improve past a (relatively bad) optimum.
 
     Overfitting takes place when a powerful model is trained on too little data.
@@ -78,6 +78,107 @@ Loss: 0.0044
 
     We could not detect overfitting in this example.
     Thus we chose the model with $200$ hidden neurons, as it had the best test accuracy.
+
+    \subsubsection{Preventing overfitting}
+    Our preliminary guess was that model \textbf{c} -- with \textit{alpha} = $0.1$ and \textit{early\_stopping} = True -- would work best.
+    The reasoning was that multiple prevention mechanisms would be best at catchinng overfitting.
+
+    It turns out that model \textbf{a} -- with only \textit{alpha} = $0.1$ -- worked best.
+
+    \pagebreak
+    We can see the test output here -- note that Variation 0 (model \textbf{a}) improved on the test accuracy from the previous task:
+
+    \begin{lstlisting}
+Number of hidden neurons: 200
+Variation 0:
+Train accuracy: 1.0000. Test accuracy: 0.8378
+Loss: 0.0678
+Variation 1:
+Train accuracy: 0.9770. Test accuracy: 0.7700
+Loss: 0.0541
+Variation 2:
+Train accuracy: 0.9709. Test accuracy: 0.7772
+Loss: 0.1722
+    \end{lstlisting}
+
+    \subsubsection{Variability of the performance}
+    \textit{For implementation see } \texttt{nn\_classification.py}.
+
+    We chose model \textbf{a}, as it showed the best output.
+    Note that this is a form of overfitting, as we are choosing hyperparameters based on their performance on the test set,
+    but the assignment requires this.
+
+    The implementation outputs the following:
+    \begin{lstlisting}
+Seed: 12011965
+Train accuracy: 1.0000. Test accuracy: 0.8354
+Loss: 0.0668
+Seed: 12004184
+Train accuracy: 1.0000. Test accuracy: 0.8475
+Loss: 0.0656
+Seed: 1234
+Train accuracy: 1.0000. Test accuracy: 0.8402
+Loss: 0.0672
+Seed: 7
+Train accuracy: 1.0000. Test accuracy: 0.8402
+Loss: 0.0673
+Seed: 4321
+Train accuracy: 1.0000. Test accuracy: 0.8329
+Loss: 0.0671
+Train accuracy overall:
+On the train set: 1.0000 +/- 0.0000 [1.0000:1.0000]
+On the test set: 0.8392 +/- 0.0050 [0.8329:0.8475]
+    \end{lstlisting}
+
+    Changing the seed changes the pseudo-random initial state of the MLP.
+    This should not change the optimal solution,
+    but a fortunate choice of the initial state may drastically reduce the number of iterations needed for convergence.
+
+    \subsubsection{Loss curve}
+    We chose seed $12004184$, as it showed the best performance in the previous test.
+    Note that this is again a form of overfitting, but the assignment requires this.
+
+    \includegraphics[width=\textwidth]{code/plots/losscurve}
+
+    \pagebreak
+    \subsubsection{Prediction on the test set}
+    The following is the output of the trained model's prediction and the confustion matrix on the test set:
+
+    \begin{lstlisting}
+Predicting on the test set
+        precision recall    f1-score    support
+
+0       0.77      0.85      0.81        40
+1       0.83      0.91      0.87        44
+2       0.85      0.73      0.79        48
+3       0.79      0.79      0.79        39
+4       0.82      0.89      0.86        37
+5       0.80      0.84      0.82        43
+6       0.79      0.68      0.73        44
+7       0.94      0.86      0.90        37
+8       0.71      0.80      0.75        30
+9       0.98      0.96      0.97        51
+
+accuracy                           0.83       413
+macro avg       0.83      0.83      0.83       413
+weighted avg       0.84      0.83      0.83       413
+
+[[34  0  0  0  2  2  1  0  0  1]
+ [ 1 40  0  1  0  0  2  0  0  0]
+ [ 0  2 35  3  1  3  0  0  4  0]
+ [ 1  0  0 31  1  0  2  0  4  0]
+ [ 0  1  0  0 33  1  1  0  1  0]
+ [ 1  2  1  0  1 36  2  0  0  0]
+ [ 4  2  2  3  0  3 30  0  0  0]
+ [ 3  0  1  0  0  0  0 32  1  0]
+ [ 0  0  2  1  2  0  0  1 24  0]
+ [ 0  1  0  0  0  0  0  1  0 49]]
+
+    \end{lstlisting}
+    \textit{Recall} measures the ratio of true positive in relation to the amount of samples that were available given class.
+    It thus measures how many samples were missed to be recognised as members of the class.
+    We can easily recalculate this for class $i$ with $\frac{tp_i}{support_i}$, with $tp_i$ being the $i$th diagonal entry in the confusion matrix (= true positive classification).
+
 \end{document}
 
 %%%%%%%%% end snippet
