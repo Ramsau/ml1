@@ -175,9 +175,54 @@ weighted avg       0.84      0.83      0.83       413
  [ 0  1  0  0  0  0  0  1  0 49]]
 
     \end{lstlisting}
-    \textit{Recall} measures the ratio of true positive in relation to the amount of samples that were available given class.
+    \textit{Recall} measures the ratio of true positive classifications in relation to the amount of samples that were available for given class.
     It thus measures how many samples were missed to be recognised as members of the class.
     We can easily recalculate this for class $i$ with $\frac{tp_i}{support_i}$, with $tp_i$ being the $i$th diagonal entry in the confusion matrix (= true positive classification).
+
+    The class with the lowest recall is thus the one where its instances are most often recognised as members of a different class.
+    In our example, this was the digit 6; images representing a 6 were most often classified as other digits compared to all the other digits.
+    We were able to conclude that because the recall for class 6 was the lowest with $0.68$.
+
+
+    \subsection{Model selection using GridSearch}
+    \subsubsection{Parameter space}
+
+    \textit{For implementation see } \texttt{nn\_classification.py}.
+
+    The parameter space spans the cross product of all the options, thus there are
+    $4 * 2 * 2 * 2 = 32$ possible architectures.
+
+    \subsubsection{Implementation}
+
+    \textit{For implementation see } \texttt{nn\_classification.py}.
+
+    \subsubsection{Best parameter set}
+
+    \textit{For implementation see } \texttt{nn\_classification.py}.
+
+    The \textit{GridSearchCV} comes to the following best solution:
+
+    \begin{lstlisting}
+Best score: 0.8477
+Best parameters: {'activation': 'relu', 'alpha': 1.0, 'hidden_layer_sizes': (100,), 'solver': 'lbfgs'}
+    \end{lstlisting}
+
+    \subsubsection{Best test score}
+
+    \textit{For implementation see } \texttt{nn\_classification.py}.
+
+    The best estimator of the grid search has the following score on the test set:
+    \begin{lstlisting}
+Score of best estimator on test set: 0.8716
+    \end{lstlisting}
+
+    \subsubsection{Hyperparameters vs. model parameters}
+    What makes hyperparameters special is that they inform they affect the model in such a way that they cannot be changed during training.
+    This could be because it changes the available set of model parameters (eg. different sizes of hidden layers),
+    or because it changes the interpretation of the model parameters (eg. different activation functions).
+    In contrast to parameters of neural networks (eg. perceptron weights and intercepts),
+    hyperparameters (such as activation function, solver) are often categorical and thus could be used for gradient descent at all.
+
 
 \end{document}
 

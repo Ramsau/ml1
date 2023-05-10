@@ -157,12 +157,23 @@ def perform_grid_search(features, targets):
     :return:
     """
     X_train, X_test, y_train, y_test = train_test_split(features, targets, test_size=0.2, random_state=33)
-    parameters = None # TODO create a dictionary of params
+    parameters = {
+        "alpha": [0.0, 0.1, 1.0, 10.0],
+        "solver": ["lbfgs", "adam"],
+        "activation": ["logistic", "relu"],
+        "hidden_layer_sizes": [(100, ), (200, )]
+    }
 
-    # nn = # TODO create an instance of MLPClassifier. Do not forget to set parameters as specified in the HW2 sheet.
-    # grid_search = # TODO create an instance of GridSearchCV from sklearn.model_selection (already imported) with
+    nn = MLPClassifier(max_iter=100, random_state=1, learning_rate_init=0.01)
+    grid_search = GridSearchCV(nn, parameters, n_jobs=-1)
     # appropriate params. Set: n_jobs=-1, this is another parameter of GridSearchCV, in order to get faster execution of the code.
 
-    # TODO call fit on the train data
-    # TODO print the best score
-    # TODO print the best parameters found by grid_search
+    grid_search.fit(X_train, y_train)
+
+    print(f'Best score: {grid_search.best_score_:.4f}')
+
+    print(f'Best parameters: {grid_search.best_params_}')
+
+    best_nn = grid_search.best_estimator_
+    print(f'Score of best estimator on test set: {best_nn.score(X_test, y_test):.4f}')
+
