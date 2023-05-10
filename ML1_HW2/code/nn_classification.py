@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.model_selection import GridSearchCV
+import matplotlib.pyplot as plt
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -93,35 +94,55 @@ def train_nn_with_different_seeds(features, targets):
     :return:
     """
     X_train, X_test, y_train, y_test = train_test_split(features, targets, test_size=0.2, random_state=33)
-    seeds = [0] # TODO create a list of different seeds of your choice
+    seeds = [12011965, 12004184, 1234, 7, 4321] # TODO create a list of different seeds of your choice
+    mlps = [
+        MLPClassifier(hidden_layer_sizes=(200, ), max_iter=500, solver='adam', random_state=seed, alpha=0.1)
+        for seed in seeds
+    ]
 
     train_acc_arr = np.zeros(len(seeds))
     test_acc_arr = np.zeros(len(seeds))
 
-    # TODO create an instance of MLPClassifier, check the perfomance for different seeds
+    for i in range(len(seeds)):
+        mlps[i].fit(X_train, y_train)
 
-    train_acc = 0 # TODO 
-    test_acc =  0 # TODO for each seed
-    loss =  0 # TODO for each seed (for you as a sanity check that the loss stays similar for different seeds, no need to include it in the report)
-    print(f'Train accuracy: {train_acc:.4f}. Test accuracy: {test_acc:.4f}')
-    print(f'Loss: {loss:.4f}')
+        train_acc = mlps[i].score(X_train, y_train)
+        test_acc =  mlps[i].score(X_test, y_test)
+        loss = mlps[i].loss_
+        train_acc_arr[i] = train_acc
+        test_acc_arr[i] = test_acc
+        print(f'Seed: {seeds[i]}')
+        print(f'Train accuracy: {train_acc:.4f}. Test accuracy: {test_acc:.4f}')
+        print(f'Loss: {loss:.4f}')
 
 
-    train_acc_mean = 0 # TODO
-    train_acc_std = 0 # TODO
+    train_acc_mean = np.mean(train_acc_arr)
+    train_acc_std = np.std(train_acc_arr)
+    train_acc_min = np.min(train_acc_arr)
+    train_acc_max = np.max(train_acc_arr)
     
-    test_acc_mean = 0 # TODO
-    test_acc_std = 0 # TODO
-    print(f'On the train set: {train_acc_mean:.4f} +/- {train_acc_std:.4f}')
-    print(f'On the test set: {test_acc_mean:.4f} +/- {test_acc_std:.4f}')
+    test_acc_mean = np.mean(test_acc_arr)
+    test_acc_std = np.std(test_acc_arr)
+    test_acc_min = np.min(test_acc_arr)
+    test_acc_max = np.max(test_acc_arr)
+
+    print(f'Train accuracy overall:')
+    print(f'On the train set: {train_acc_mean:.4f} +/- {train_acc_std:.4f} [{train_acc_min:.4f}:{train_acc_max:.4f}]')
+    print(f'On the test set: {test_acc_mean:.4f} +/- {test_acc_std:.4f} [{test_acc_min:.4f}:{test_acc_max:.4f}]')
     # TODO: print min and max accuracy as well
 
-    # TODO: plot the loss curve 
-    # TODO: Confusion matrix and classification report (for one classifier that performs well)
+    # TODO: plot the loss curve
+
     print("Predicting on the test set")
-    # y_pred = 0 # TODO calculate predictions
-    # print(classification_report(y_test, y_pred)) 
-    # print(confusion_matrix(y_test, y_pred, labels=range(10)))
+    plt.plot(mlps[1].loss_curve_, label=f'Loss curve for MLP with seed {seeds[1]}')
+    plt.ylabel("loss")
+    plt.xlabel("iteration")
+    plt.legend()
+    plt.show()
+    plt.savefig("plots/losscurve.jpg")
+    y_pred = mlps[i].predict(X_test)
+    print(classification_report(y_test, y_pred))
+    print(confusion_matrix(y_test, y_pred, labels=range(10)))
 
 
 def perform_grid_search(features, targets):

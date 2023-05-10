@@ -1,0 +1,83 @@
+%%%%%%%%% begin snippet
+%% You need to add the package "tabularx".
+%% Place the snippet right after \begin{document}
+
+% need tabularx
+\documentclass{article}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{listings}
+
+\begin{document}
+    \begin{titlepage}
+           \begin{center}
+                 \begin{huge}
+                       %% Update assignment number here
+                       \textbf{Assignment 2}
+                 \end{huge}
+           \end{center}
+
+           \begin{center}
+                 \begin{large}
+                       Machine Learning 1, SS23
+                 \end{large}
+           \end{center}
+
+           \begin{center}
+                \begin{tabularx}{\textwidth}{|>{\hsize=.33\hsize}X|>{\hsize=.33\hsize}X|>{\hsize=.33\hsize}X|}
+
+                       \hline
+                       \multicolumn{3}{|c|}{\textbf{Team Members}} \\
+                       \hline
+                       Last name & First name & Matriculation Number \\
+                       \hline
+                       Grassl & Ifeoma & 12011965 \\
+                       \hline
+                       Royer & Christoph & 12004184 \\
+                       \hline
+
+                \end{tabularx}
+           \end{center}
+
+    \end{titlepage}
+
+    \section{Neural Networks}
+    \subsection{PCA and Classification}
+    \subsubsection{PCA for dimensionality reduction}
+    \textit{For implementation see } \texttt{nn\_classification.py}.
+
+    We used $320$ components, which gave a ratio of $95.05\%$ explained variance.
+
+    \subsubsection{Varying the number of hidden neurons}
+    \textit{For implementation see } \texttt{nn\_classification.py}.
+
+    \textbf{Output of the program:}
+    \begin{lstlisting}
+Number of hidden neurons: 2
+Train accuracy: 0.5913. Test accuracy: 0.4262
+Loss: 1.0635
+Number of hidden neurons: 10
+Train accuracy: 0.9982. Test accuracy: 0.7215
+Loss: 0.0156
+Number of hidden neurons: 100
+Train accuracy: 1.0000. Test accuracy: 0.7724
+Loss: 0.0054
+Number of hidden neurons: 200
+Train accuracy: 1.0000. Test accuracy: 0.7918
+Loss: 0.0044
+    \end{lstlisting}
+
+    Underfitting is generally easy to spot, as it manifests in poor performance both on training and on test data.
+    This is often the case if the model does not have enough capacity; in this case, the loss converges on a bad value.
+    The model cannot improve past a (relatively bad) optimum.
+
+    Overfitting takes place when a powerful model is trained on too little data.
+    In this case, the model learns the training data -- including its inaccuracies -- too well.
+    The side effect of this is that the model fails to predict test data accurately because of an overfixation on the particularities of the training dataset.
+
+    We could not detect overfitting in this example.
+    Thus we chose the model with $200$ hidden neurons, as it had the best test accuracy.
+\end{document}
+
+%%%%%%%%% end snippet
