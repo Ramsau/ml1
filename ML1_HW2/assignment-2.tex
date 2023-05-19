@@ -8,6 +8,8 @@
 \usepackage{graphicx}
 \usepackage{pdfpages}
 \usepackage{listings}
+\usepackage{subcaption}
+\usepackage{verbatim}
 
 \begin{document}
     \begin{titlepage}
@@ -261,7 +263,169 @@ Score of best estimator on test set: 0.8716
     \begin{lstlisting}
         Train MSE: 0.0008. Test MSE: 0.0009
     \end{lstlisting}
+
+    \pagebreak
+
+    \section{Bonus: Implementation of a Perceptron}
+    \subsection{ Plots of the decision boundaries learned for the two datasets, two implementations, and different values of learning rates and number of iterations}
+    \subsubsection{Linearly separable dataset, $learning\_rate=0.1$, $iterations=5$}
     
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/our_perceptron_LR0.1_ITER5_dataset_loaddata}
+            \caption{Our Perceptron}
+            \label{fig:image1}
+        \end{subfigure}
+        \hspace{2cm} % Adjust the horizontal spacing between the subfigures
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/SKperceptron_LR0.1_ITER5_dataset_loaddata}
+            \caption{SKperceptron}
+            \label{fig:image2}
+        \end{subfigure}
+        \label{fig:overall}
+    \end{figure}
+
+    \begin{verbatim}    
+        Our perceptron:                       Sklearn perceptron:
+        Training MSE: 0.0                     Training MSE: 0.0
+        Testing MSE:  0.0                     Testing MSE: 0.0
+        train error: 0.0                      train error: 0.0
+        test error: 0.0                       test error: 0.0
+    \end{verbatim}
+
+    \subsubsection{Linearly separable dataset, $learning\_rate=0.001$, $iterations=1$}
+
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/our_perceptron_LR0.001_ITER1_dataset_loaddata}
+            \caption{Our Perceptron}
+            \label{fig:image1}
+        \end{subfigure}
+        \hspace{2cm} % Adjust the horizontal spacing between the subfigures
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/SKperceptron_LR0.001_ITER1_dataset_loaddata}
+            \caption{SKperceptron}
+            \label{fig:image2}
+        \end{subfigure}
+        \label{fig:overall}
+    \end{figure}
+
+    \begin{verbatim}    
+        Our perceptron:                       Sklearn perceptron:
+        Training MSE: 0.0                     Training MSE: 0.0
+        Testing MSE:  0.0                     Testing MSE: 0.0
+        train error: 0.0                      train error: 0.0
+        test error: 0.0                       test error: 0.0
+    \end{verbatim}
+
+    \subsubsection{Non linearly separable dataset, $learning\_rate=0.001$, $iterations=1$}
+
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/our_perceptron_LR0.001_ITER1_dataset_load_non_linearly_separable_data}
+            \caption{Our Perceptron}
+            \label{fig:image1}
+        \end{subfigure}
+        \hspace{2cm} % Adjust the horizontal spacing between the subfigures
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/SKperceptron_LR0.001_ITER1_dataset_load_non_linearly_separable_data}
+            \caption{SKperceptron}
+            \label{fig:image2}
+        \end{subfigure}
+        \label{fig:overall}
+    \end{figure}
+
+    \begin{verbatim}    
+        Our perceptron:                        Sklearn perceptron:
+        Training MSE: 0.475                    Training MSE: 0.45
+        Testing MSE:  0.47                     Testing MSE: 0.5
+        train error: 0.475                     train error: 0.45
+        test error: 0.47                       test error: 0.5
+    \end{verbatim}
+
+    \subsubsection{Non linearly separable dataset, $learning\_rate=0.1$, $iterations=5$}
+
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/our_perceptron_LR0.1_ITER5_dataset_load_non_linearly_separable_data}
+            \caption{Our Perceptron}
+            \label{fig:image1}
+        \end{subfigure}
+        \hspace{2cm} % Adjust the horizontal spacing between the subfigures
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/SKperceptron_LR0.1_ITER5_dataset_load_non_linearly_separable_data}
+            \caption{SKperceptron}
+            \label{fig:image2}
+        \end{subfigure}
+        \label{fig:overall}
+    \end{figure}
+
+    \begin{verbatim}    
+        Our perceptron:                        Sklearn perceptron:
+        Training MSE: 0.4625                    Training MSE: 0.475
+        Testing MSE:  0.45                     Testing MSE: 0.5
+        train error: 0.4625                     train error: 0.475
+        test error: 0.45                       test error: 0.5
+    \end{verbatim}
+
+    \subsubsection{Non linearly separable dataset, $learning\_rate=0.0001$, $iterations=10000$}
+
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/our_perceptron_LR0.0001_ITER10000_dataset_load_non_linearly_separable_data.png}
+            \caption{Our Perceptron}
+            \label{fig:image1}
+        \end{subfigure}
+        \hspace{2cm} % Adjust the horizontal spacing between the subfigures
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{code/plots/SKperceptron_LR0.0001_ITER10000_dataset_load_non_linearly_separable_data.png}
+            \caption{SKperceptron}
+            \label{fig:image2}
+        \end{subfigure}
+        \label{fig:overall}
+    \end{figure}
+
+    \begin{verbatim}    
+        Our perceptron:                        Sklearn perceptron:
+        Training MSE: 0.4625                    Training MSE: 0.475
+        Testing MSE:  0.45                     Testing MSE: 0.45
+        train error: 0.4625                     train error: 0.475
+        test error: 0.45                       test error: 0.45
+    \end{verbatim}
+
+    \subsection{How do the results of sklearn implementation of Perceptron differ from your implementation?}
+
+    The results for the linearly separable dataset do not differ. For the Non linearly separable dataset it's clear to see that the decision boundary changes a lot more than with our implementation, although the results for the mean squared error losses and the classification errors are very similar.
+
+    \subsection{How many training iterations does it take for the perceptron to learn to classify all training samples perfectly?}
+
+    For the linearly separable dataset it takes our perceptron two full iterations to classify all training samples perfectly (for the values of learning\_rate that we tested). However, even only one iteration also leads to a 0.0 training and testing MSE as well as a 0.0 train and test error (with about two samples being incorrectly classified)\\
+    For the non linearly separable dataset it didn't matter how high we made the learning rate, there always ended up being 30 or so samples that were incorrectly classified.
+
+    \subsection{What is the misclassification rate (the percentage of incorrectly classified examples) for both datasets?}
+
+    I have added the misclassification rate in subsection 3.1 (test error and train error)
+    For the linearly separable dataset it is 0.0 while for the non linearly separable dataset it is between 0.45 and 0.47 for the test error.
+
+    \subsection{How would you learn a non-linear decision boundary using a single perceptron? (Hint: recall what we had for linear regression.)}
+
+    To learn non-linear decision boundaries, you would typically need a multi-layer perceptron. The additional hidden layers in an MLP allow for the extraction of non-linear features from the input data, enabling the network to learn and represent more complex decision boundaries. The key is to transform the input features into a higher-dimensional space where a linear decision boundary can be established (feature engineering).
+    You can creating new features or modifying existing features to improve the performance and effectiveness of a machine learning model.
 
 
 \end{document}
