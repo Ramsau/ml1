@@ -223,6 +223,46 @@ Score of best estimator on test set: 0.8716
     In contrast to parameters of neural networks (eg. perceptron weights and intercepts),
     hyperparameters (such as activation function, solver) are often categorical and thus could be used for gradient descent at all.
 
+    \pagebreak
+    
+    \section{Regression with Neural Networks}
+    \subsection{Implement the function $calculate\_mse$}
+
+    This function is used to compute the mean squared error between the target values and the corresponding predicted values obtained from a model. The MSE is a commonly used metric to evaluate the performance of regression models.
+    Code:
+    \begin{lstlisting}
+    def calculate_mse(targets, predictions):
+        """
+        :param targets:
+        :param predictions: Predictions obtained by using the model
+        :return:
+        """
+        mse = mean_squared_error(targets, predictions)
+    return mse
+    \end{lstlisting}
+    \subsection{Train the network to solve the task: Using $GridSearchCV$ to find a good model}
+    We chose a similar dictionary as in task 1:
+    \begin{lstlisting}
+    parameters = {
+        "alpha": [0.0, 0.1, 1.0],
+        "solver": ["lbfgs", "adam"],
+        "activation": ["logistic", "relu"],
+        'early_stopping': [True, False],
+        "hidden_layer_sizes": [(100, ), (200, ), (300, ), (400, )]
+    }
+    \end{lstlisting}
+    It tests 3 different alpha values, i.e. regularization strengths, two different solvers/ optimizers, two activations, combinations with early stopping being enabled and not enabled, and it tests four different hidden layer sizes. Which means the grid\_search will test out 3*2*2*2*4=96 different architectures.\\
+    The best model ended up having the following parameters:
+    \begin{lstlisting}
+        Best parameters: {'activation': 'relu', 'alpha': 0.1, 'early_stopping': True, 'hidden_layer_sizes': (400,), 'solver': 'lbfgs'}
+    \end{lstlisting}
+    \subsection{Report the train and test loss}
+    We are using the $calculate\_mse$ function from above to calculate the mean squared error loss. Result:
+    \begin{lstlisting}
+        Train MSE: 0.0008. Test MSE: 0.0009
+    \end{lstlisting}
+    
+
 
 \end{document}
 
