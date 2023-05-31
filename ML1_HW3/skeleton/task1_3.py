@@ -13,7 +13,8 @@ if __name__ == '__main__':
   X_train, X_test, y_train, y_test = get_toy_dataset(2, apply_noise=True)
   for k in [1, 5, 20, 50, 100]:
     # TODO fit your KNearestNeighborsClassifier with k in {1, 5, 20, 50, 100} and plot the decision boundaries
-    clf = ...
+    clf = GridSearchCV(KNearestNeighborsClassifier(k=k), {})
+    clf.fit(X_train, y_train)
     # TODO you can use the `cross_val_score` method to manually perform cross-validation
     # TODO report mean cross-validated scores!
     test_score = clf.score(X_test, y_test)
@@ -22,7 +23,12 @@ if __name__ == '__main__':
 
   # TODO find the best parameters for the noisy dataset!
   knn = KNearestNeighborsClassifier()
-  clf = ...
+  clf = GridSearchCV(knn, {"k": [i in range(1, 101)]}, return_train_score=True)
+  clf.fit(X_train, y_train)
+  plt.plot(clf.cv_results_['mean_train_score'])
+  plt.plot(clf.cv_results_['mean_test_score'])
+  plt.savefig(f"../plots/kmeans_noisy_loss.png")
+  plt.show()
   # TODO The `cv_results_` attribute of `GridSearchCV` contains useful aggregate information
   # such as the `mean_train_score` and `mean_test_score`. Plot these values as a function of `k` and report the best
   # parameters. Is the classifier very sensitive to the choice of k?
