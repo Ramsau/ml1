@@ -23,8 +23,11 @@ if __name__ == '__main__':
     plt.savefig(f"../plots/kmeans_boundary_{idx}.png")
     plt.show()
     plt.figure()
-    plt.plot(clf.cv_results_['mean_train_score'])
-    plt.plot(clf.cv_results_['mean_test_score'])
+    plt.plot(clf.cv_results_['mean_train_score'], label="train")
+    plt.plot(clf.cv_results_['mean_test_score'], label="text")
+    plt.legend()
+    plt.xlabel("k")
+    plt.ylabel("training loss")
     plt.savefig(f"../plots/kmeans_loss_{idx}.png")
     plt.show()
 

@@ -44,6 +44,64 @@
 
     \end{titlepage}
 
+    \section{k-Nearest Neighbors}
+    \subsection{Implementation}
+    \textit{For implementation see} \texttt{task1\_1.py}
+
+    \subsection{Application}
+    Output for dataset 1:
+    \begin{verbatim}
+Test Score: 1.0
+Dataset 1: {'k': 1}
+    \end{verbatim}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_loss_1}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_boundary_1}
+
+    Output for dataset 2:
+    \begin{verbatim}
+Test Score: 0.9953703703703703
+Dataset 2: {'k': 1}
+    \end{verbatim}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_loss_2}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_boundary_2}
+
+    Output for dataset 3:
+    \begin{verbatim}
+Test Score: 0.8867924528301887
+Dataset 3: {'k': 3}
+    \end{verbatim}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_loss_3}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_boundary_3}
+
+    \subsection{Choice of k}
+    When $k=1$, the training accuracy is always $100\%$,
+    since every point is its own nearest neighbor.
+    This will often not generalize well though, as it takes every noisy sample as a new area for the given class.
+    A high k on the other hand will be very robust against noise, but will have problems with complex decision boundaries,
+    especially when there are relatively few training samples present near a complex boundary.
+
+    \begin{verbatim}
+Test Score for k=1: 0.7407407407407407
+Cross-validated score for k=1: 0.7264162194394752
+Test Score for k=5: 0.8009259259259259
+Cross-validated score for k=5: 0.7666070363744782
+Test Score for k=20: 0.7870370370370371
+Cross-validated score for k=20: 0.7696362552176506
+Test Score for k=50: 0.7824074074074074
+Cross-validated score for k=50: 0.7557185450208707
+Test Score for k=100: 0.7546296296296297
+Cross-validated score for k=100: 0.6908288610614192
+
+Best k: 15
+Score: 0.7916666666666666
+    \end{verbatim}
+
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_noisy_boundary_1}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_noisy_boundary_5}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_noisy_boundary_20}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_noisy_boundary_50}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_noisy_boundary_100}
+    \includegraphics[width=\textwidth / 2]{plots/kmeans_noisy_loss}
 
 \end{document}
 
