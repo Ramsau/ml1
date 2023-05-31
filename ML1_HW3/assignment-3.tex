@@ -1,0 +1,50 @@
+%%%%%%%%% begin snippet
+%% You need to add the package "tabularx".
+%% Place the snippet right after \begin{document}
+
+% need tabularx
+\documentclass{article}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{verbatim}
+
+\begin{document}
+    \begin{titlepage}
+           \begin{center}
+                 \begin{huge}
+                       %% Update assignment number here
+                       \textbf{Assignment 3}
+                 \end{huge}
+           \end{center}
+
+           \begin{center}
+                 \begin{large}
+                       Machine Learning 1, SS23
+                 \end{large}
+           \end{center}
+
+           \begin{center}
+                \begin{tabularx}{\textwidth}{|>{\hsize=.33\hsize}X|>{\hsize=.33\hsize}X|>{\hsize=.33\hsize}X|}
+
+                       \hline
+                       \multicolumn{3}{|c|}{\textbf{Team Members}} \\
+                       \hline
+                       Last name & First name & Matriculation Number \\
+                       \hline
+                       Grassl & Ifeoma & 12011965 \\
+                       \hline
+                       Royer & Christoph & 12004184 \\
+                       \hline
+
+                \end{tabularx}
+           \end{center}
+
+    \end{titlepage}
+
+
+\end{document}
+
+%%%%%%%%% end snippet
