@@ -134,6 +134,25 @@ Test Score: 0.8867924528301887
     The classifier is less affected by outliers as the number of trees increases.
     This is because many of the trees (mis)interpret the outliers differently, and thus the error averages out with an
     averaged classification over all trees.
+
+
+    \subsection{RFECV}
+    The following bar chart shows the most important features in the data set.
+    We can plainly see for example, that feature number 13 is the most important.
+    \includegraphics[width=\textwidth]{plots/randomtree_feat_importances}
+    The following is the output of the unpruned part of the script:
+    \begin{verbatim}
+Score of Random Forest: 0.684
+Score of SVC: 0.708
+    \end{verbatim}
+
+    The following is the output of the pruned part of the script:
+    \begin{verbatim}
+Score of SVC on pruned data: 0.744
+    \end{verbatim}
+    We can see that we got a better score on the test data compared to taking all of the features.
+    This tells us that many of the features in the dataset were redundant or irrelevent to the classification,
+    which is why the classifier performed better without considering them.
 \end{document}
 
 %%%%%%%%% end snippet
