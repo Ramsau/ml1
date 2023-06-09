@@ -20,14 +20,22 @@ def grad(w, b, C, X, y):
   # TODO: implement the gradients with respect to w and b.
   # useful methods: np.sum, np.where, numpy broadcasting
 
-
   raw_hinge_loss = 1 - y * (np.dot(X, w) + b)
-  mask_b = np.where(raw_hinge_loss >= 0, (-1) * y, 0)
+  #mask_b = np.where(raw_hinge_loss > 0, C*(-1)*y, 0) # weird plot
+  mask_b = np.where(raw_hinge_loss > 0, C*1, 0)
   grad_b = np.sum(mask_b)
 
-  mask_w = np.where(raw_hinge_loss >= 0, (-1) * y[:, np.newaxis] * X, 0)
-  grad_w = np.sum(mask_w, axis=0) * C + w
+  # mask_w = np.where(raw_hinge_loss > 0, w + (-1) * C *  y[:, np.newaxis] * X, w)
+  # grad_w = np.sum(mask_w, axis=0)
+  # doesnt work
 
+  grad_w = w.copy()
+  for i in range(X.shape[0]):
+
+    if(1 - y[i] * (X[i].dot(w) + b) > 0):
+      grad_w += w + (-1) * C*y[i]* X[i]
+    else:
+      grad_w += w
 
   return grad_w, grad_b
 
@@ -58,9 +66,10 @@ class LinearSVM(BaseEstimator):
 
   def predict(self, X):
     # TODO: assign class labels to unseen data
-    y_pred = np.empty(len(X))
+    y_pred = np.empty(len(X))  # to store the predicted class labels for each data point
     for i in range(len(X)):
-      if (self.w@X[i] + self.b >= 0):
+      prediction_value = np.dot(self.w, X[i].T) + self.b
+      if (prediction_value >= 0):
         y_pred[i] = 1
       else:
         y_pred[i] = -1

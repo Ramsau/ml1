@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
+#import seaborn as sns
 
 
 def plot_decision_boundary(X, clf, plot_step=0.05):
