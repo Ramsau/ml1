@@ -61,8 +61,11 @@ def plot_mickey_mouse(X, K, ind_samples_clusters, centroids):
 
 
 def plot_objective_function(arr_over_iter):
-    # TODO: plot objective over iter (objective J for K-means, log-likelihood function for EM)
-    pass
+    plt.plot(arr_over_iter)
+    plt.suptitle("Loss over iterations")
+    plt.ylabel("Loss")
+    plt.xlabel("Iteration")
+    plt.show()
 
 
 def task_kmeans(X):
@@ -70,8 +73,8 @@ def task_kmeans(X):
     :param X: data for clustering, shape: (N, D), N=500, D = 2
     :return:
     """
-    K = 1 # TODO: change
-    max_iter = 1 # TODO: change 
+    K = 5
+    max_iter = 50
     ind_samples_clusters, centroids, J = kmeans(X, K, max_iter)
 
     plot_objective_function(J)
@@ -102,7 +105,7 @@ def main():
 
     # ----- Task K-Means
     print('--- Task K-Means ---')
-    # task_kmeans(X_mouse) # TODO: uncomment to call the function
+    task_kmeans(X_mouse)
 
     
     # ----- Task EM
