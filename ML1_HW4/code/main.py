@@ -62,8 +62,8 @@ def plot_mickey_mouse(X, K, ind_samples_clusters, centroids):
 
 def plot_objective_function(arr_over_iter):
     plt.plot(arr_over_iter)
-    plt.suptitle("Loss over iterations")
-    plt.ylabel("Loss")
+    plt.suptitle("Objective over iterations")
+    plt.ylabel("Objective function")
     plt.xlabel("Iteration")
     plt.show()
 
@@ -86,8 +86,8 @@ def task_em(X):
     :param X: data for clustering, shape: (N, D), N=500, D = 2
     :return:
     """
-    K = 1 # TODO: change 
-    max_iter = 1 # TODO: change 
+    K = 3
+    max_iter = 50
     means, soft_clusters, log_likelihood = em(X, K, max_iter)
     
     plot_objective_function(log_likelihood)
@@ -110,7 +110,7 @@ def main():
     
     # ----- Task EM
     print('--- Task EM ---')
-    # task_em(X_mouse) # TODO: uncomment to call the function
+    task_em(X_mouse)
 
 if __name__ == '__main__':
     main()

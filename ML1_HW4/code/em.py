@@ -21,7 +21,7 @@ def calculate_responsibilities(X, mean, sigma, pi, N, K):
     # Now calculate responsibilities gamma_nk, that is, the whole expression
     # Use the previously defined and calculated variable denom
     for k in range(K):
-        responsibilities[:, k] = 0 # TODO: change
+        responsibilities[:, k] = pi[k] * likelihood[:, k] / denom
         
     return responsibilities                                             
 
@@ -53,7 +53,11 @@ def update_parameters(X, mean, sigma, pi, responsibilities, N, K):
     for k in range(K):
         gamma_nk = responsibilities[:, k].T
 
-        # TODO: mean_new
+        sum_mean = np.zeros((X.shape[1], ))
+        for n in range(N):
+            sum_mean += X[n] * gamma_nk[n]
+
+        mean_new[k, :] = sum_mean / N_k[k]
         
         tmp = np.zeros_like(sigma_new[k])
         for sample in range(N):
@@ -62,7 +66,7 @@ def update_parameters(X, mean, sigma, pi, responsibilities, N, K):
                                           
         sigma_new[k] = tmp / N_k[k]
 
-        # TODO: pi_new
+        pi_new[k] = N_k[k] / N
     
     return mean_new, sigma_new, pi_new
 
@@ -99,10 +103,10 @@ def em(X, K, max_iter):
 
     for it in range(max_iter):
         # E-Step
-        # TODO: appropriate function call
+        responsibilities = calculate_responsibilities(X, mean, sigma, pi, N, K)
         
         # M-Step
-        # TODO: appropriate function call
+        mean, sigma, pi = update_parameters(X, mean, sigma, pi, responsibilities, N, K)
         
         # Evaluate
         soft_clusters = np.zeros((N, K))

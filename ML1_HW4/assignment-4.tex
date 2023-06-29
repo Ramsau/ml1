@@ -49,6 +49,7 @@
 
     \section{K-means. Expectation-Maximization Algorithm}
     \subsection{K-means Algorithm}
+    \label{subseq:kmeans}
     \textit{See implementation in} \texttt{k\_means.py}
 
     \includegraphics[width=\textwidth/2]{plots/mickey_original} \\
@@ -66,7 +67,18 @@
     But now one would manually have to stitch together the three centroids that all take up some of the space in the big cluster.
 
     \subsection{Expectation-Maximization Algorithm}
+    \textit{See implementation in} \texttt{em.py}
 
+    \includegraphics[width=\textwidth / 2]{plots/mickey_em3}
+    \includegraphics[width=\textwidth / 2]{plots/mickey_em3_likelihood}
+    Compared to the original data (see \ref{subseq:kmeans}), the EM-algorithm provides a very good result.
+    Nearly all of the points are correclty classified, although the algorithm still cannot identify the outliers as such.
+    We also see none of the problems the K-means algorithm had, where parts of the big cluster were assigned to one of the smaller clusters.
+
+    This is also reflected in the final values of $\pi$.
+    We can see clearly that the bigger cluster got a bigger weight, while the two smaller clusters have a similar, smaller weight.\\
+    Inital value of $\pi$: \texttt{Init pi: [0.33333333 0.33333333 0.33333333]}\\
+    Final value of $\pi$: \texttt{Pi: [0.60036228 0.20177808 0.19785964]}
 
     \subsection{Summary and comparison of two algorithms}
     //todo
